@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Parchados — Búsqueda y Filtros</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ccff00",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#1f230f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .active-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header
+        class="flex items-center justify-between p-4 sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md z-10 border-b border-slate-200 dark:border-slate-800">
+        <button onclick="window.location.href='explora.html'"
+            class="flex items-center justify-center p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <h1 class="text-lg font-bold tracking-tight">Búsqueda y Filtros</h1>
+        <button
+            class="flex items-center justify-center p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors ml-auto mr-2">
+            <span class="material-symbols-outlined text-primary">light_mode</span>
+        </button><button class="text-sm font-semibold text-primary hover:opacity-80 transition-opacity">Limpiar</button>
+    </header>
+    <main class="flex-1 overflow-y-auto pb-32">
+        <!-- Bloque 1: Cuándo (Calendario) -->
+        <section class="p-4 border-b border-slate-200 dark:border-slate-800">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-primary">calendar_today</span>
+                <h3 class="text-lg font-bold">Cuándo</h3>
+            </div>
+            <div class="bg-slate-100 dark:bg-slate-900/50 rounded-xl p-4">
+                <div class="flex items-center justify-between mb-4">
+                    <button class="p-1 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    <p class="font-bold">Octubre 2023</p>
+                    <button class="p-1 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
+                </div>
+                <div class="grid grid-cols-7 text-center gap-y-2">
+                    <span class="text-xs font-bold text-slate-400">D</span>
+                    <span class="text-xs font-bold text-slate-400">L</span>
+                    <span class="text-xs font-bold text-slate-400">M</span>
+                    <span class="text-xs font-bold text-slate-400">X</span>
+                    <span class="text-xs font-bold text-slate-400">J</span>
+                    <span class="text-xs font-bold text-slate-400">V</span>
+                    <span class="text-xs font-bold text-slate-400">S</span>
+                    <!-- Calendar days -->
+                    <div class="h-10 flex items-center justify-center text-sm col-start-2">1</div>
+                    <div class="h-10 flex items-center justify-center text-sm">2</div>
+                    <div class="h-10 flex items-center justify-center text-sm">3</div>
+                    <div class="h-10 flex items-center justify-center text-sm">4</div>
+                    <div
+                        class="h-10 flex items-center justify-center text-sm bg-primary/20 dark:bg-primary/10 rounded-l-full relative">
+                        <span
+                            class="z-10 bg-primary text-background-dark font-bold rounded-full w-8 h-8 flex items-center justify-center">5</span>
+                    </div>
+                    <div class="h-10 flex items-center justify-center text-sm bg-primary/20 dark:bg-primary/10">6</div>
+                    <div class="h-10 flex items-center justify-center text-sm bg-primary/20 dark:bg-primary/10">7</div>
+                    <div class="h-10 flex items-center justify-center text-sm bg-primary/20 dark:bg-primary/10">8</div>
+                    <div class="h-10 flex items-center justify-center text-sm bg-primary/20 dark:bg-primary/10">9</div>
+                    <div
+                        class="h-10 flex items-center justify-center text-sm bg-primary/20 dark:bg-primary/10 rounded-r-full">
+                        <span
+                            class="z-10 bg-primary text-background-dark font-bold rounded-full w-8 h-8 flex items-center justify-center">10</span>
+                    </div>
+                    <div class="h-10 flex items-center justify-center text-sm">11</div>
+                    <div class="h-10 flex items-center justify-center text-sm">12</div>
+                    <div class="h-10 flex items-center justify-center text-sm">13</div>
+                    <div class="h-10 flex items-center justify-center text-sm">14</div>
+                    <div class="h-10 flex items-center justify-center text-sm">15</div>
+                </div>
+            </div>
+        </section>
+        <!-- Bloque 2: Qué (Categorías) -->
+        <section class="p-4 border-b border-slate-200 dark:border-slate-800">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-primary">explore</span>
+                <h3 class="text-lg font-bold">Qué</h3>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <button
+                    class="flex items-center gap-3 p-3 rounded-xl border-2 border-primary bg-primary/5 dark:bg-primary/10 transition-all">
+                    <span class="material-symbols-outlined text-primary">restaurant</span>
+                    <span class="text-sm font-medium">Gastronomía</span>
+                </button>
+                <button
+                    class="flex items-center gap-3 p-3 rounded-xl border-2 border-transparent bg-slate-100 dark:bg-slate-900 transition-all hover:bg-slate-200 dark:hover:bg-slate-800">
+                    <span class="material-symbols-outlined text-slate-500">nightlife</span>
+                    <span class="text-sm font-medium">Fiesta</span>
+                </button>
+                <button
+                    class="flex items-center gap-3 p-3 rounded-xl border-2 border-transparent bg-slate-100 dark:bg-slate-900 transition-all hover:bg-slate-200 dark:hover:bg-slate-800">
+                    <span class="material-symbols-outlined text-slate-500">theater_comedy</span>
+                    <span class="text-sm font-medium">Cultura</span>
+                </button>
+                <button
+                    class="flex items-center gap-3 p-3 rounded-xl border-2 border-transparent bg-slate-100 dark:bg-slate-900 transition-all hover:bg-slate-200 dark:hover:bg-slate-800">
+                    <span class="material-symbols-outlined text-slate-500">fitness_center</span>
+                    <span class="text-sm font-medium">Deporte</span>
+                </button>
+            </div>
+        </section>
+        <!-- Bloque 3: Quién (Filtro por creador/comercio) -->
+        <section class="p-4">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-primary">group</span>
+                <h3 class="text-lg font-bold">Quién</h3>
+            </div>
+            <div class="space-y-4">
+                <div class="relative">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+                    <input
+                        class="w-full pl-10 pr-4 py-3 bg-slate-100 dark:bg-slate-900 border-none rounded-xl focus:ring-2 focus:ring-primary text-sm"
+                        placeholder="Buscar comercios o amigos..." type="text" />
+                </div>
+                <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                    <div class="flex flex-col items-center gap-2 shrink-0">
+                        <div class="w-14 h-14 rounded-full border-2 border-primary p-0.5">
+                            <img alt="" class="w-full h-full rounded-full object-cover"
+                                data-alt="Profile picture of a young man"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAw4gO-iXaSHVuSSWxSdtBQ3OGCxQf89WuxNTvgdA9_Vac0iDnUbz8v_CmKD54T3_OKilYbDAnhNExQoBsjmb8IO9FvojNHpFC9GZ7NzlrE3pvuLubSL_dCO4NuXVKJdpP4AtKaofswoZ6XImArR4PeMfZMEVnMMxwfB-3-HsSflZIMM_RVsYVcXvP93hoFlw-ALoS6m3t9b0pYgZmvgKL3RKiBjZ8kVTzg9HwplwPfmJfRs6GCtCDwQt2OaRCJNE30OXkQQEH8UDU" />
+                        </div>
+                        <span class="text-[10px] font-medium">Cerca de ti</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 shrink-0">
+                        <div class="w-14 h-14 rounded-full border-2 border-slate-200 dark:border-slate-800 p-0.5">
+                            <img alt="" class="w-full h-full rounded-full object-cover"
+                                data-alt="Modern coffee shop storefront with neon sign"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBD7YdzPUcJ75s-oVV0Xte5B2LbRabEiwoue0h1KF5qybbahMYKbK6U79zUuWIFA3ZMempUthe5DKiiRi8q5o9JDbzqSYKx8pN_7T0QPDyfXJJyx5LverP1VUsqS9uO7AoPd4tUVxrJO5hQB_9pJ03659hDiq2XZ3JAiAtnKuNKAT_p2OuZV-5leecR_7MG8QrOYg0gfOu9WN-qzcRVR2N1j9byssn9UHUdaltKb7_Z7eDnwcX2f7tY9js2eqK_-SebdkfsYIMc-2o" />
+                        </div>
+                        <span class="text-[10px] font-medium">Café Roots</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 shrink-0">
+                        <div class="w-14 h-14 rounded-full border-2 border-slate-200 dark:border-slate-800 p-0.5">
+                            <img alt="" class="w-full h-full rounded-full object-cover"
+                                data-alt="Vibrant cocktail bar with atmospheric lighting"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3YvYwzJZFEoJ4nom3sFOf00MP-7pttgZufhSdQ7sykdbrOfCidKg-wUELeOHxb1cfLxKaC2-E3In9TTIUtK5iHeiF5EbKcbqXv5HH2FIR-axX4zWeEpwnCaMa8yQJ9tFAnJGt-gJ-SsxuFzqlrhdkh3-bl21TUiuvV70DCnfWrfoTtNa-RWuBxwnpegOoc7-AfXgW_WCEa8mh2OpWXW41w-1oKmWGUPhHqBFnZaDvzfaSW6uuF64rNLDplumz0RM9NlMSZOm2bEo" />
+                        </div>
+                        <span class="text-[10px] font-medium">Neo Bar</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 shrink-0">
+                        <div class="w-14 h-14 rounded-full border-2 border-slate-200 dark:border-slate-800 p-0.5">
+                            <img alt="" class="w-full h-full rounded-full object-cover"
+                                data-alt="Profile picture of a smiling woman"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtxAq9OG2GpZFKDqKvdtalN_2yoSgAghixzgQlTYNm1Xu0uJ2r4Obj-EE816jqnhXFEoZ_enIiYkSib-rXzHLDioXYYqyKVBXVTw3bWMYZmGYS8rM3AxbvAUWNBrCCmxZr46NdOIJvk_HEu3SVMzQpv2h-7Ww8SmrfSoLZoSu8P2pEuAojO5ttir4VQkiupPBWCJp7jyZHzZVJu0uafvAn_aJnnYqfhoIg9qQR_loh35Nkn48L746Hm8SsH0YVcq3aJAdJBVEAdOs" />
+                        </div>
+                        <span class="text-[10px] font-medium">Sofía M.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Bottom Action & Navigation -->
+    <div
+        class="fixed bottom-0 w-full bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-slate-800">
+        <div class="p-4">
+            <button
+                class="w-full bg-primary text-background-dark font-bold py-4 rounded-xl shadow-lg shadow-primary/20 hover:scale-[0.98] transition-transform">
+                Buscar planes
+            </button>
+        </div>
+        <nav class="flex justify-around items-center px-4 pb-6 pt-2">
+            <a class="flex flex-col items-center gap-1 text-slate-400" href="explora.html">
+                <span class="material-symbols-outlined">explore</span>
+                <span class="text-[10px] font-medium">Explorar</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-primary" href="filtros.html">
+                <span class="material-symbols-outlined active-icon">search</span>
+                <span class="text-[10px] font-medium">Buscar</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-slate-400" href="escaner.html">
+                <span class="material-symbols-outlined">favorite</span>
+                <span class="text-[10px] font-medium">Favoritos</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-slate-400" href="perfil.html">
+                <span class="material-symbols-outlined">person</span>
+                <span class="text-[10px] font-medium">Perfil</span>
+            </a>
+        </nav>
+    </div>
+</body>
+
+</html>

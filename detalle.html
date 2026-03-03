@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ccff00",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#1f230f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+    <!-- Header / Top Bar -->
+    <header
+        class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div class="flex items-center p-4 justify-between max-w-md mx-auto w-full">
+            <button onclick="window.location.href='explora.html'"
+                class="flex size-10 items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
+            </button>
+            <h2 class="text-lg font-bold leading-tight tracking-tight flex-1 text-center">Detalle del Parche</h2>
+            <div class="flex w-10 items-center justify-center">
+                <button aria-label="Toggle theme"
+                    class="flex size-10 items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                    <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">light_mode</span>
+                </button>
+            </div>
+            <div class="flex w-10 items-center justify-end">
+                <button
+                    class="flex size-10 items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                    <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">share</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <main class="flex-1 max-w-md mx-auto w-full pb-24">
+        <!-- Gallery Section -->
+        <section class="w-full @container">
+            <div class="grid grid-cols-4 gap-2 p-4 h-[300px]">
+                <div class="col-span-3 row-span-2 rounded-xl overflow-hidden bg-slate-200 dark:bg-slate-800">
+                    <div class="w-full h-full bg-center bg-no-repeat bg-cover"
+                        data-alt="Main event photo showing a crowded concert stage"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDQtGBuRojDQlRXh1IhGYHzSdn9nBY6w4B4h5DfVBgt7EWJ8BclONd02npFEoBYnc8dt_ImCXIw-bbQFAWLKgQLWA_im6HraExjF3__FSZbl-tONVmR8in7poDzNwcBGA89pP8SDU2ZKXd8hjrxGS9wsr6iqbwDgL6Y3Hl_BM6gJPOO3SguQG98XIP-hLn_0uuIakTkPerDNU3T--vtjOrjdJLllUpW8-6ygPjLXJrcZ3OGAqtxNzha12lHRcQ8xVStw9q_nlTg43Q");'>
+                    </div>
+                </div>
+                <div class="col-span-1 rounded-xl overflow-hidden bg-slate-200 dark:bg-slate-800">
+                    <div class="w-full h-full bg-center bg-no-repeat bg-cover" data-alt="Close up of a DJ mixing music"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB_GDVJGct9nRNs1jFBJi3rR_1PMpx8dMSw3-Em8PR_A3qyLQyRN3Nwr2kucRkHc2Nj3PFfH7T2TWq79HW_fnXdZOsXipv8sN0MPTOuI7B7H0eXAptgfHd1guYJPoAuWLz8OSb2xa1wGExoDnrxt_FzvJpW6IAy3FkQPLygwZyUl-fFU7XwZq3SkuaCmvYYXigI4a4HSgzomeMI0PNslfNyGYIfGUqxJ56iUnssyuQSfpDI60gIzRNiGmQA2ISXqpgtB87zFWJldMA");'>
+                    </div>
+                </div>
+                <div class="col-span-1 rounded-xl overflow-hidden bg-slate-200 dark:bg-slate-800 relative">
+                    <div class="w-full h-full bg-center bg-no-repeat bg-cover opacity-60"
+                        data-alt="People dancing at a social gathering"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA2W8rK8FJhpdx1oC6PMeoAiks8SlLO-sfIVJ2Drr2XFBpG1VeUND8FZUVY1lFWykFJV6Pvmknb4L4h2e9A93rJyLM1t_jwsdofY6Fewu_gPyM8cuqPsDMYDnAlCG4wal_uoWdsZqcCrVzjP1WlgYwFggfHOs42muMvh2FPLQUav_SrqhoRHfTdG5JFLuEXiv6_KDAF5YFoVHEdq5vKNHF1mQXMwuCGQvhRKlpcvVQFom5fTzKpDZ1Mi7LzvhjZAsnUThI8dBPSGjY");'>
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/40">
+                        <span class="text-white font-bold">+12</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Tags & Info -->
+        <section class="px-4 space-y-4">
+            <div class="flex gap-2 flex-wrap items-center">
+                <div
+                    class="flex h-8 items-center justify-center gap-x-2 rounded-lg bg-primary/20 border border-primary/30 px-3">
+                    <span class="material-symbols-outlined text-primary text-sm">lock_open</span>
+                    <p class="text-primary text-xs font-bold uppercase tracking-wider">Plan Abierto</p>
+                </div>
+                <div
+                    class="flex h-8 items-center justify-center gap-x-2 rounded-lg bg-slate-200 dark:bg-slate-800 px-3">
+                    <span class="material-symbols-outlined text-primary text-sm">stars</span>
+                    <p class="text-slate-900 dark:text-slate-100 text-xs font-bold">+50 Puntos Parche</p>
+                </div>
+            </div>
+            <div class="space-y-2">
+                <h1 class="text-slate-900 dark:text-slate-100 text-3xl font-bold leading-tight">Neon Rooftop Party</h1>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Únete al parche más vibrante de la ciudad. Una noche llena de música electrónica, cócteles
+                    artesanales y la mejor vista panorámica. No te pierdas la oportunidad de conectar con gente nueva y
+                    ganar puntos para tus próximas salidas.
+                </p>
+            </div>
+            <!-- Features List -->
+            <div class="grid grid-cols-2 gap-4 pt-4">
+                <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-100 dark:bg-slate-800/50">
+                    <span class="material-symbols-outlined text-primary">calendar_today</span>
+                    <div>
+                        <p class="text-xs text-slate-500">Fecha</p>
+                        <p class="text-sm font-semibold">24 Oct, 2023</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-100 dark:bg-slate-800/50">
+                    <span class="material-symbols-outlined text-primary">schedule</span>
+                    <div>
+                        <p class="text-xs text-slate-500">Hora</p>
+                        <p class="text-sm font-semibold">08:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            <!-- CTA Section -->
+            <div class="pt-8">
+                <a class="flex w-full items-center justify-center gap-3 bg-primary text-background-dark py-4 px-6 rounded-xl font-bold text-lg shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                    href="#">
+                    <svg class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z">
+                        </path>
+                    </svg>
+                    Ir al chatbot de WhatsApp
+                </a>
+            </div>
+        </section>
+    </main>
+    <!-- Bottom Navigation Bar -->
+    <nav
+        class="fixed bottom-0 left-0 right-0 bg-slate-100/90 dark:bg-background-dark/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800">
+        <div class="flex max-w-md mx-auto h-20 items-center justify-around px-4">
+            <a class="flex flex-col items-center gap-1 group" href="explora.html">
+                <span
+                    class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">explore</span>
+                <p class="text-[10px] font-medium text-slate-500 group-hover:text-primary">Explorar</p>
+            </a>
+            <a class="flex flex-col items-center gap-1 group" href="escaner.html">
+                <span class="material-symbols-outlined text-primary"
+                    style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+                <p class="text-[10px] font-medium text-primary">Mis Parches</p>
+            </a>
+            <a class="flex flex-col items-center gap-1 group" href="puntos.html">
+                <span
+                    class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">stars</span>
+                <p class="text-[10px] font-medium text-slate-500 group-hover:text-primary">Puntos</p>
+            </a>
+            <a class="flex flex-col items-center gap-1 group" href="perfil.html">
+                <span
+                    class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">person</span>
+                <p class="text-[10px] font-medium text-slate-500 group-hover:text-primary">Perfil</p>
+            </a>
+        </div>
+    </nav>
+</body>
+
+</html>

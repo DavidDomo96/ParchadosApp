@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ccff00",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#1f230f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <title>Parchados - Perfil de Usuario</title>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+    <!-- Header Navigation -->
+    <header
+        class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div class="flex items-center p-4 justify-between max-w-md mx-auto w-full">
+            <div onclick="window.location.href='explora.html'"
+                class="flex size-10 shrink-0 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 cursor-pointer">
+                <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
+            </div>
+            <h2 class="text-lg font-bold leading-tight tracking-tight flex-1 text-center">Mi Perfil</h2>
+            <div class="flex items-center justify-end flex-1">
+                <button
+                    class="flex size-10 cursor-pointer items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 mr-2">
+                    <span class="material-symbols-outlined">light_mode</span>
+                </button><button
+                    class="flex size-10 cursor-pointer items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <main class="flex-1 max-w-md mx-auto w-full pb-24">
+        <!-- User Info Section -->
+        <section class="flex p-6 @container">
+            <div class="flex w-full flex-col gap-6 items-center">
+                <div class="relative">
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-32 ring-4 ring-primary/20"
+                        data-alt="Retrato de un hombre joven sonriendo al aire libre"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCMdg82Wb7mcYp4mjFIwmos0Gh14nRHtzRZKoYFyEGqMRH6EaUrTwLeyweh7_dUBafBH1tzJL9PBErx8DSslDk97GwNuEH4_fCGFDQ2quTNTIiVs6q8TKsNbNSTXynVhyyYPBj54P8LfKrJJ3-GckMLWZKXKzD7O0o4QedMAUa9KprlRBfpbsaS3WRYHOe6fOq5KXp36rhN1rDGjdrkyvUfUXGmpH5fDD81bxJJ0hiXgWv2jmca7vFjSNe_693SYirJplL2cW_sZUc");'>
+                    </div>
+                    <div
+                        class="absolute bottom-1 right-1 bg-primary text-background-dark size-8 rounded-full flex items-center justify-center shadow-lg border-2 border-background-dark">
+                        <span class="material-symbols-outlined text-sm font-bold">edit</span>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center text-center">
+                    <h1 class="text-2xl font-bold tracking-tight">Juan Pérez</h1>
+                    <div
+                        class="mt-1 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+                        <span class="material-symbols-outlined text-primary text-sm font-bold">military_tech</span>
+                        <p class="text-primary text-sm font-semibold">Nivel 5 - Explorador Experto</p>
+                    </div>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mt-2">Miembro desde Enero 2024</p>
+                </div>
+            </div>
+        </section>
+        <!-- Points Card -->
+        <section class="px-4">
+            <div class="flex flex-col gap-2 rounded-xl p-6 bg-primary text-background-dark shadow-xl shadow-primary/10">
+                <div class="flex justify-between items-start">
+                    <p class="text-background-dark/70 text-sm font-bold uppercase tracking-wider">Total Puntos Parche
+                    </p>
+                    <span class="material-symbols-outlined opacity-70">stars</span>
+                </div>
+                <div class="flex items-baseline gap-2">
+                    <p class="text-4xl font-black leading-tight">1,250</p>
+                    <p class="text-lg font-bold opacity-80">PTS</p>
+                </div>
+                <div class="mt-4 w-full bg-background-dark/10 h-2 rounded-full overflow-hidden">
+                    <div class="bg-background-dark h-full w-[75%] rounded-full"></div>
+                </div>
+                <p class="text-xs mt-2 font-medium opacity-70">Faltan 250 pts para Nivel 6</p>
+            </div>
+        </section>
+        <!-- History Tabs -->
+        <section class="mt-8">
+            <div class="flex border-b border-slate-200 dark:border-slate-800 px-4">
+                <button
+                    class="flex-1 flex flex-col items-center justify-center border-b-2 border-primary text-primary pb-3 pt-4">
+                    <span class="text-sm font-bold">Próximos</span>
+                </button>
+                <button
+                    class="flex-1 flex flex-col items-center justify-center border-b-2 border-transparent text-slate-500 dark:text-slate-400 pb-3 pt-4 hover:text-slate-900 dark:hover:text-slate-100">
+                    <span class="text-sm font-bold">Asistidos</span>
+                </button>
+                <button
+                    class="flex-1 flex flex-col items-center justify-center border-b-2 border-transparent text-slate-500 dark:text-slate-400 pb-3 pt-4 hover:text-slate-900 dark:hover:text-slate-100">
+                    <span class="text-sm font-bold">Inasistencias</span>
+                </button>
+            </div>
+            <!-- Tab Content (Empty State Example) -->
+            <div class="p-8 flex flex-col items-center justify-center text-center gap-4">
+                <div class="size-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-slate-400 text-3xl">event_busy</span>
+                </div>
+                <div>
+                    <h3 class="font-bold">No hay eventos próximos</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">¡Explora y parcha con nuevos amigos!</p>
+                </div>
+                <button class="mt-2 px-6 py-2 bg-primary text-background-dark font-bold rounded-lg text-sm">Explorar
+                    eventos</button>
+            </div>
+        </section>
+        <!-- Support Section -->
+        <section class="px-4 mt-4">
+            <a class="flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50"
+                href="#">
+                <div class="flex items-center gap-4">
+                    <div class="size-10 rounded-full bg-green-500/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-green-500">support_agent</span>
+                    </div>
+                    <div>
+                        <p class="font-bold">Soporte Técnico</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">¿Tienes dudas? Escríbenos por WhatsApp</p>
+                    </div>
+                </div>
+                <span class="material-symbols-outlined text-slate-400">chevron_right</span>
+            </a>
+        </section>
+    </main>
+    <!-- Bottom Navigation Bar -->
+    <nav
+        class="fixed bottom-0 left-0 right-0 bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 px-4 pb-6 pt-2 z-50">
+        <div class="flex justify-between max-w-md mx-auto">
+            <a class="flex flex-1 flex-col items-center gap-1 text-slate-400" href="explora.html">
+                <span class="material-symbols-outlined">home</span>
+                <p class="text-[10px] font-medium uppercase tracking-wider">Inicio</p>
+            </a>
+            <a class="flex flex-1 flex-col items-center gap-1 text-slate-400" href="filtros.html">
+                <span class="material-symbols-outlined">search</span>
+                <p class="text-[10px] font-medium uppercase tracking-wider">Explorar</p>
+            </a>
+            <a class="flex flex-1 flex-col items-center gap-1 text-slate-400" href="escaner.html">
+                <span class="material-symbols-outlined">confirmation_number</span>
+                <p class="text-[10px] font-medium uppercase tracking-wider">Eventos</p>
+            </a>
+            <a class="flex flex-1 flex-col items-center gap-1 text-primary" href="perfil.html">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">person</span>
+                <p class="text-[10px] font-medium uppercase tracking-wider">Perfil</p>
+            </a>
+        </div>
+    </nav>
+</body>
+
+</html>

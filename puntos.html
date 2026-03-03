@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#ccff00",
+            "background-light": "#f8f8f5",
+            "background-dark": "#1f230f",
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+
+<body
+  class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+  <!-- Header Navigation -->
+  <div
+    class="flex items-center bg-background-light dark:bg-background-dark p-4 sticky top-0 z-10 border-b border-slate-200 dark:border-primary/10">
+    <div onclick="window.location.href='explora.html'"
+      class="text-slate-900 dark:text-slate-100 flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-primary/20 cursor-pointer">
+      <span class="material-symbols-outlined">arrow_back</span>
+    </div>
+    <h2 class="text-lg font-bold leading-tight tracking-tight flex-1 text-center pr-10">Gamificación y Reglas</h2>
+  </div>
+  <!-- Stepper / Progress -->
+  <div class="flex w-full flex-row items-center justify-center gap-3 py-6">
+    <div class="h-2 w-2 rounded-full bg-slate-300 dark:bg-primary/20"></div>
+    <div class="h-2 w-2 rounded-full bg-slate-300 dark:bg-primary/20"></div>
+    <div class="h-2 w-2 rounded-full bg-slate-300 dark:bg-primary/20"></div>
+    <div class="h-2 w-2 rounded-full bg-slate-300 dark:bg-primary/20"></div>
+    <div class="h-4 w-4 rounded-full bg-primary flex items-center justify-center">
+      <div class="h-2 w-2 rounded-full bg-background-dark"></div>
+    </div>
+    <div class="h-2 w-2 rounded-full bg-slate-300 dark:bg-primary/20"></div>
+    <div class="h-2 w-2 rounded-full bg-slate-300 dark:bg-primary/20"></div>
+  </div>
+  <!-- Main Content -->
+  <main class="flex-1 px-4 pb-24 overflow-y-auto">
+    <!-- Score Overview -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold mb-4">Tus Puntos</h2>
+      <div
+        class="flex flex-col gap-2 rounded-xl p-6 bg-slate-100 dark:bg-primary/10 border border-slate-200 dark:border-primary/20 relative overflow-hidden">
+        <div class="absolute top-0 right-0 p-4 opacity-20">
+          <span class="material-symbols-outlined text-6xl">stars</span>
+        </div>
+        <p class="text-slate-600 dark:text-slate-400 text-sm font-medium uppercase tracking-wider">Balance Actual</p>
+        <div class="flex items-baseline gap-2">
+          <p class="text-slate-900 dark:text-primary text-4xl font-black">240</p>
+          <p class="text-slate-600 dark:text-slate-300 text-lg font-semibold">pts</p>
+        </div>
+      </div>
+    </section>
+    <!-- Information Cards -->
+    <div class="space-y-4">
+      <!-- Card: What is Parchados? -->
+      <div class="bg-white dark:bg-slate-800/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="bg-primary/20 p-2 rounded-lg text-primary">
+            <span class="material-symbols-outlined">help_outline</span>
+          </div>
+          <h3 class="font-bold text-lg">¿Qué es Parchados?</h3>
+        </div>
+        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+          Es el sistema de recompensas exclusivo para nuestra comunidad. Acumula puntos por ser activo, asistir a
+          encuentros y dar feedback de valor.
+        </p>
+      </div>
+      <!-- Card: Take care of your points (Alert) -->
+      <div class="bg-red-50 dark:bg-red-900/10 p-5 rounded-xl border border-red-200 dark:border-red-900/30">
+        <div class="flex items-center gap-3 mb-3 text-red-600 dark:text-red-400">
+          <span class="material-symbols-outlined">report_problem</span>
+          <h3 class="font-bold text-lg">Cuida tus puntos</h3>
+        </div>
+        <div class="flex justify-between items-center bg-white/50 dark:bg-red-950/20 p-3 rounded-lg">
+          <span class="text-sm font-medium">Penalidad por No-Show</span>
+          <span class="text-red-600 dark:text-red-400 font-bold">-40 pts</span>
+        </div>
+        <p class="mt-3 text-xs text-slate-500 dark:text-slate-400 italic">
+          * Si confirmas y no asistes sin avisar 24h antes, perderás puntos de tu balance.
+        </p>
+      </div>
+      <!-- Card: How to win? -->
+      <div class="bg-white dark:bg-slate-800/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="bg-primary p-2 rounded-lg text-background-dark">
+            <span class="material-symbols-outlined">military_tech</span>
+          </div>
+          <h3 class="font-bold text-lg">¿Cómo ganar premios?</h3>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary">event_available</span>
+              <span class="text-sm font-medium">Asistir a un parche</span>
+            </div>
+            <span class="text-primary font-bold">+50 pts</span>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary">rate_review</span>
+              <span class="text-sm font-medium">Dejar feedback</span>
+            </div>
+            <span class="text-primary font-bold">+20 pts</span>
+          </div>
+        </div>
+        <button
+          class="w-full mt-6 bg-primary text-background-dark font-bold py-3 rounded-lg hover:opacity-90 transition-opacity">
+          Ver catálogo de premios
+        </button>
+      </div>
+    </div>
+  </main>
+  <!-- Bottom Navigation Bar -->
+  <div
+    class="fixed bottom-0 left-0 right-0 bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-primary/10 px-4 pb-6 pt-2 z-20">
+    <div class="flex justify-around items-center max-w-md mx-auto">
+      <a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" href="explora.html">
+        <span class="material-symbols-outlined">home</span>
+        <p class="text-[10px] font-medium uppercase tracking-tighter">Inicio</p>
+      </a>
+      <a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" href="filtros.html">
+        <span class="material-symbols-outlined">group</span>
+        <p class="text-[10px] font-medium uppercase tracking-tighter">Parches</p>
+      </a>
+      <a class="flex flex-col items-center gap-1 text-primary" href="puntos.html">
+        <div class="relative">
+          <span class="material-symbols-outlined fill-1" style="font-variation-settings: 'FILL' 1">stars</span>
+          <div class="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+        </div>
+        <p class="text-[10px] font-bold uppercase tracking-tighter">Puntos</p>
+      </a>
+      <a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" href="perfil.html">
+        <span class="material-symbols-outlined">account_circle</span>
+        <p class="text-[10px] font-medium uppercase tracking-tighter">Perfil</p>
+      </a>
+    </div>
+  </div>
+</body>
+
+</html>

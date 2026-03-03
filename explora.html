@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Leaflet JS & CSS for Interactive Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ccff00",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#1f230f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .font-variation-fill-1 {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Leaflet Override */
+        .leaflet-control-container {
+            display: none;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 h-screen w-screen overflow-hidden font-display relative">
+
+    <!-- Fullscreen Map Background -->
+    <div id="map" class="absolute inset-0 z-0"></div>
+
+    <!-- Top Floating Section -->
+    <div class="absolute top-0 left-0 w-full z-10 pointer-events-none p-4 pb-0 flex flex-col gap-4">
+
+        <!-- Header Indicators -->
+        <div class="flex items-center justify-between pointer-events-auto max-w-md mx-auto w-full">
+            <div
+                class="flex items-center gap-2 bg-background-light/95 dark:bg-slate-800/95 backdrop-blur-xl px-4 py-2 rounded-full shadow-lg border border-slate-200/50 dark:border-slate-700/50 cursor-pointer">
+                <span
+                    class="material-symbols-outlined text-slate-900 dark:text-slate-100 text-[20px] font-variation-fill-1">location_on</span>
+                <div>
+                    <h1 class="text-[13px] font-bold leading-tight tracking-tight text-slate-900 dark:text-slate-100">
+                        Sabana Centro</h1>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button
+                    class="flex items-center justify-center size-[42px] rounded-full bg-background-light/95 dark:bg-slate-800/95 backdrop-blur-xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined text-slate-700 dark:text-slate-200">info</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="relative pointer-events-auto shadow-lg rounded-[20px] mx-auto w-full max-w-md mt-1">
+            <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                <span class="material-symbols-outlined text-[#ff8c00] dark:text-primary font-bold">search</span>
+            </div>
+            <input
+                class="block w-full pl-5 pr-12 py-[14px] bg-background-light/95 dark:bg-slate-800/95 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 rounded-[20px] focus:ring-2 focus:ring-primary focus:outline-none text-[15px] font-medium placeholder-slate-400 dark:text-slate-100 shadow-sm"
+                placeholder="¿Tienes planes?" type="text" />
+        </div>
+    </div>
+
+
+    <!-- Bottom Floating Section -->
+    <div class="absolute bottom-[75px] left-0 right-0 z-10 pointer-events-none flex flex-col items-end gap-3 pb-3">
+
+        <div class="w-full flex justify-between items-end px-4 max-w-md mx-auto">
+            <!-- Theme Toggle positioned left -->
+            <button id="theme-toggle"
+                class="pointer-events-auto size-[48px] bg-background-light/95 dark:bg-slate-800/95 backdrop-blur-xl rounded-2xl flex items-center justify-center shadow-lg border border-slate-200/50 dark:border-slate-700/50 active:scale-95 transition-transform">
+                <span class="material-symbols-outlined text-slate-800 dark:text-slate-200">dark_mode</span>
+            </button>
+
+            <!-- Locate Me button positioned right -->
+            <button id="locate-me"
+                class="pointer-events-auto size-[48px] bg-background-light/95 dark:bg-slate-800/95 backdrop-blur-xl rounded-2xl flex items-center justify-center shadow-lg border border-slate-200/50 dark:border-slate-700/50 active:scale-95 transition-transform">
+                <span
+                    class="material-symbols-outlined text-slate-800 dark:text-slate-200 font-variation-fill-1 text-xl">my_location</span>
+            </button>
+        </div>
+
+        <!-- Floating Scrollable Filter Chips -->
+        <div class="w-full max-w-md mx-auto">
+            <div class="flex gap-2 overflow-x-auto hide-scrollbar pointer-events-auto snap-x px-4 pb-1">
+                <button
+                    class="snap-start flex shrink-0 items-center justify-center px-[22px] py-2.5 rounded-full bg-primary text-background-dark text-[14px] font-bold shadow-md">
+                    Todos
+                </button>
+                <button
+                    class="snap-start flex shrink-0 items-center justify-center px-[22px] py-2.5 rounded-full bg-background-light/95 dark:bg-slate-800/95 backdrop-blur-xl text-slate-700 dark:text-slate-200 text-[14px] font-semibold border border-slate-200/50 dark:border-slate-700/50 shadow-sm">
+                    Social
+                </button>
+                <button
+                    class="snap-start flex shrink-0 items-center justify-center px-[22px] py-2.5 rounded-full bg-background-light/95 dark:bg-slate-800/95 backdrop-blur-xl text-slate-700 dark:text-slate-200 text-[14px] font-semibold border border-slate-200/50 dark:border-slate-700/50 shadow-sm">
+                    Comida
+                </button>
+                <button
+                    class="snap-start flex shrink-0 items-center justify-center px-[22px] py-2.5 rounded-full bg-background-light/95 dark:bg-slate-800/95 backdrop-blur-xl text-slate-700 dark:text-slate-200 text-[14px] font-semibold border border-slate-200/50 dark:border-slate-700/50 shadow-sm">
+                    Noche
+                </button>
+                <button
+                    class="snap-start flex shrink-0 items-center justify-center px-[22px] py-2.5 rounded-full bg-background-light/95 dark:bg-slate-800/95 backdrop-blur-xl text-slate-700 dark:text-slate-200 text-[14px] font-semibold border border-slate-200/50 dark:border-slate-700/50 shadow-sm">
+                    Arte
+                </button>
+            </div>
+        </div>
+
+        <!-- Bottom Sheet Event Card -->
+        <div class="w-full px-4 max-w-md mx-auto">
+            <div class="pointer-events-auto bg-background-light/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-[28px] p-4 shadow-[0_4px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.4)] border border-slate-200/50 dark:border-slate-700/50 flex gap-4 items-center cursor-pointer active:scale-[0.98] transition-all"
+                onclick="window.location.href='detalle.html'">
+                <div class="h-[75px] w-[75px] rounded-[18px] bg-cover bg-center shrink-0 shadow-sm border border-slate-100 dark:border-slate-800"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDRAM83Cw58dxjek-hTzqDzhol6DSuyh4Vi3bzK5HgT_o57MW1TSZ1BWP72TttwnYrJaElsUKCIVmGRk8rZWFiXyjlYxnwdIFlsTxw6o0uln2Jq_DUiXJ3yUUtLM8MQscna5EBT991x6liIHd09FbFEAIX9Rie2zDyTLzEYKK29dY9MUQMz-ptpNw613sNB4oAay8tCEzwqV1CRyi7-FYlf7lgaPXRZQnG5xG0JZYozhSP-k4ZzdnVzcf7a0RlV7A7mTmMzf04nUL4')">
+                </div>
+                <div class="flex-1 min-w-0 py-1">
+                    <h4 class="text-[17px] font-bold text-slate-900 dark:text-slate-100 truncate tracking-tight">Taller
+                        de Cafe!</h4>
+                    <p class="text-[13px] font-medium text-slate-500 dark:text-slate-400 mt-[2px] truncate">Noche -
+                        Evento Social</p>
+                    <p class="text-[12px] font-medium text-slate-400 dark:text-slate-500 mt-[2px] truncate">Parque
+                        Principal Sabana</p>
+                    <span class="text-[13px] font-semibold text-slate-600 dark:text-slate-400 mt-1 block">En 1
+                        hora</span>
+                </div>
+                <div class="flex items-center justify-center w-8 shrink-0 text-slate-400">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bottom Navigation Bar -->
+    <nav
+        class="absolute bottom-0 left-0 right-0 bg-background-light/98 dark:bg-background-dark/98 backdrop-blur-xl border-t border-slate-200 dark:border-slate-800 px-2 pb-5 pt-[10px] z-50 pointer-events-auto h-[75px]">
+        <div class="flex justify-around items-center h-full max-w-md mx-auto">
+            <a class="flex flex-col items-center gap-1 text-[#ff8c00] dark:text-primary" href="explora.html">
+                <span class="material-symbols-outlined text-2xl font-variation-fill-1">local_florist</span>
+                <span class="text-[10px] font-bold uppercase tracking-tight">Explora</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+                href="filtros.html">
+                <span class="material-symbols-outlined text-2xl">receipt_long</span>
+                <span class="text-[10px] font-medium uppercase tracking-tight">Eventos</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+                href="puntos.html">
+                <span class="material-symbols-outlined text-2xl">favorite_border</span>
+                <span class="text-[10px] font-medium uppercase tracking-tight">Favoritos</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+                href="perfil.html">
+                <span class="material-symbols-outlined text-2xl">person_outline</span>
+                <span class="text-[10px] font-medium uppercase tracking-tight">Perfil</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Theme & Map Interactivity Script -->
+    <script>
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeIcon = themeBtn.querySelector('span');
+        const htmlBlock = document.documentElement;
+
+        // Theme sync
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlBlock.classList.add('dark');
+            themeIcon.textContent = 'light_mode';
+        } else {
+            htmlBlock.classList.remove('dark');
+            themeIcon.textContent = 'dark_mode';
+        }
+
+        // Initialize Map
+        const map = L.map('map', {
+            zoomControl: false,
+            attributionControl: false
+        }).setView([4.8624, -74.0583], 15);
+
+        let currentLayer;
+
+        function updateMapTheme() {
+            const isDark = htmlBlock.classList.contains('dark');
+            // CartoDB base maps - clean aesthetic perfect for native app feel
+            const tileUrl = isDark
+                ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+                : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+
+            if (currentLayer) {
+                map.removeLayer(currentLayer);
+            }
+            currentLayer = L.tileLayer(tileUrl, {
+                subdomains: 'abcd',
+                maxZoom: 20
+            });
+            currentLayer.addTo(map);
+        }
+
+        updateMapTheme();
+
+        // Theme Toggle Event Listener
+        themeBtn.addEventListener('click', () => {
+            htmlBlock.classList.toggle('dark');
+            if (htmlBlock.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+                themeIcon.textContent = 'light_mode';
+            } else {
+                localStorage.theme = 'light';
+                themeIcon.textContent = 'dark_mode';
+            }
+            updateMapTheme();
+        });
+
+        // Add Example Pins using native looking divIcons
+        const createIcon = (iconName) => L.divIcon({
+            className: 'custom-div-icon',
+            html: `<div class="size-[34px] bg-[#ff8c00] dark:bg-primary rounded-full border-[3px] border-white dark:border-background-dark flex items-center justify-center shadow-md transform hover:scale-110 transition-transform cursor-pointer">
+                    <span class="material-symbols-outlined text-white dark:text-background-dark text-[18px] font-bold font-variation-fill-1">${iconName}</span>
+                   </div>`,
+            iconSize: [34, 34],
+            iconAnchor: [17, 34]
+        });
+
+        L.marker([4.8650, -74.0600], { icon: createIcon('restaurant') }).addTo(map);
+        L.marker([4.8600, -74.0550], { icon: createIcon('local_cafe') }).addTo(map);
+        L.marker([4.8630, -74.0500], { icon: createIcon('nightlife') }).addTo(map);
+
+        // Locate Me Button
+        document.getElementById('locate-me').addEventListener('click', () => {
+            map.locate({ setView: true, maxZoom: 16 });
+        });
+    </script>
+</body>
+
+</html>
