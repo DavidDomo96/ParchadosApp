@@ -17,11 +17,6 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-    <!-- PapaParse para procesar CSV -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"
-        integrity="sha512-dfvX8050t2+mO2L0d0iA+8rT+0eQjS9hJshT3dZf38Qx+P5v5oZIt+I40HpfR2qTfD9O8fB/X4uN/70xH1m/7w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -266,41 +261,95 @@
             'default': 'explore'
         };
 
-        // Load CSV Data using PapaParse
-        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRAH0g9Exd8uMNUAxHvOgoJ6-9Kre9iQhLlpyzA2FRzlePIrRBk2-fqt50Mvnz4AUKDYvH68gu_zsBd/pub?gid=0&single=true&output=csv';
         const eventsContainer = document.getElementById('events-container');
 
-        Papa.parse(csvUrl, {
-            download: true,
-            header: true,
-            complete: function (results) {
-                const events = results.data.filter(e => e['Nombre del Evento']); // filter out empty rows
-                eventsContainer.innerHTML = ''; // clear mock
+        // Datos locales de prueba
+        const localEvents = [
+            {
+                'Nombre del Evento': 'Noches de Micrófono Abierto',
+                'Comercio Aliado': 'Café El Quijote',
+                'Fotografía (URL)': 'https://assets.zyrosite.com/TtKjScl72MGQiVB7/20241027_180857-8MXCQ4wfoqGbkzht.jpg',
+                'Categoría': 'Arte',
+                'Descripción': 'Expresa tu talento en poesía o música. Ambiente bohemio.',
+                'Latitud': '4.858014',
+                'Longitud': '-74.056216',
+                'Dirección Física': 'Calle 10 # 5-22, Chía',
+                'Fecha y Hora': '20/3/2026 19:30:00',
+                'Tipo de Plan': 'Plan Abierto',
+                'Valor / Link de Acción': 'Gratis',
+                'Puntos Parche': '+20'
+            },
+            {
+                'Nombre del Evento': 'Taller de Café Colombiano',
+                'Comercio Aliado': 'Taller de Cafe!',
+                'Fotografía (URL)': 'https://lh3.googleusercontent.com/aida-public/AB6AXuDRAM83Cw58dxjek-hTzqDzhol6DSuyh4Vi3bzK5HgT_o57MW1TSZ1BWP72TttwnYrJaElsUKCIVmGRk8rZWFiXyjlYxnwdIFlsTxw6o0uln2Jq_DUiXJ3yUUtLM8MQscna5EBT991x6liIHd09FbFEAIX9Rie2zDyTLzEYKK29dY9MUQMz-ptpNw613sNB4oAay8tCEzwqV1CRyi7-FYlf7lgaPXRZQnG5xG0JZYozhSP-k4ZzdnVzcf7a0RlV7A7mTmMzf04nUL4',
+                'Categoría': 'Social',
+                'Descripción': 'Aprende sobre catación',
+                'Latitud': '4.8650',
+                'Longitud': '-74.0600',
+                'Dirección Física': 'Parque Principal Sabana',
+                'Fecha y Hora': 'En 1 hora',
+                'Tipo de Plan': 'Noche - Evento Social',
+                'Valor / Link de Acción': '$45.000',
+                'Puntos Parche': '+15'
+            },
+            {
+                'Nombre del Evento': 'Ruta del Burger',
+                'Comercio Aliado': 'Burger Master',
+                'Fotografía (URL)': 'https://lh3.googleusercontent.com/aida-public/AB6AXuDOBVRayrIdMGeYSeQhzYyEtRo9ZwEc_SWl3-wowpuMw-180c6VSiUk_MhkVBoRnqfk1640DqFyRMlPxkk7E38W05Joklq-BDy48Ez4Wkp-t1RaGNnPXd_Uml4n5qcOqyxmTxzLPpt_t7umkfrg0YmJ0gL8pc6NmkAO3qkpX9PXioJbWVxR0z7rhzowwYnipilhsGXQ7G1zYR_vqcuOBI7AhJaApujM4cVc_0PM2dzMIeH2BxqmJb8p5wJz-7IZX-sZPyrVkq8w-a4',
+                'Categoría': 'Comida',
+                'Descripción': 'Deliciosas hamburguesas',
+                'Latitud': '4.8600',
+                'Longitud': '-74.0550',
+                'Dirección Física': 'Vía principal',
+                'Fecha y Hora': 'Cerca de ti',
+                'Tipo de Plan': 'Comida',
+                'Valor / Link de Acción': '20.000',
+                'Puntos Parche': '+10'
+            },
+            {
+                'Nombre del Evento': 'Yoga al Aire Libre',
+                'Comercio Aliado': 'Zen Park',
+                'Fotografía (URL)': 'https://lh3.googleusercontent.com/aida-public/AB6AXuAFrRZeFeK06ZZNnLE5ch_-CxcPITq5msYcvqYGAs4zUIbLXWZYCrs-aZC28E69-Qy-nWJifiA2QVFCwyWxHxrkHRS45OJcllxXq28zt8idc8PKD3ZwSZ-T81emGTV5TTRApuQ8Pm6AWpwsYc-kwNVwfGbmlWs0ELQdZ44sOBiTO1HTS3gXK9l_KId3YnPQ0uShJOvEuOT9vQkstbIdxDiXxJPlD9zRE_SH6O_b7c1mTVFAUIqRD1hO6eKdWvi2ltbMPx4TUM52ENY',
+                'Categoría': 'Deporte',
+                'Descripción': 'Conéctate con tu interior',
+                'Latitud': '4.8630',
+                'Longitud': '-74.0500',
+                'Dirección Física': 'Parque Ecológico',
+                'Fecha y Hora': 'Mañana',
+                'Tipo de Plan': 'Deporte',
+                'Valor / Link de Acción': 'Gratis',
+                'Puntos Parche': '+5'
+            }
+        ];
 
-                events.forEach(event => {
-                    // Extracting values based on columns
-                    const title = event['Nombre del Evento'];
-                    let category = event['Categoría'] || 'default';
-                    // Clean up trailing spaces from CSV
-                    category = category.trim();
+        function renderEvents(events) {
+            eventsContainer.innerHTML = ''; // clear mock
 
-                    const iconName = categoryIconMap[category] || categoryIconMap['default'];
-                    const imgUrl = event['Fotografía (URL)'] || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=300&auto=format&fit=crop';
-                    const type = event['Tipo de Plan'] || category;
-                    const address = event['Dirección Física'] || event['Comercio Aliado'] || 'Ubicación secreta';
-                    const time = event['Fecha y Hora'] || 'Próximamente';
+            events.forEach(event => {
+                // Extracting values based on columns
+                const title = event['Nombre del Evento'];
+                let category = event['Categoría'] || 'default';
+                // Clean up trailing spaces from CSV
+                category = category.trim();
 
-                    const lat = parseFloat(event['Latitud']);
-                    const lng = parseFloat(event['Longitud']);
+                const iconName = categoryIconMap[category] || categoryIconMap['default'];
+                const imgUrl = event['Fotografía (URL)'] || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=300&auto=format&fit=crop';
+                const type = event['Tipo de Plan'] || category;
+                const address = event['Dirección Física'] || event['Comercio Aliado'] || 'Ubicación secreta';
+                const time = event['Fecha y Hora'] || 'Próximamente';
 
-                    // Add map marker if coordinates exist
-                    if (!isNaN(lat) && !isNaN(lng)) {
-                        const marker = L.marker([lat, lng], { icon: createIcon(iconName) }).addTo(map);
-                        marker.bindPopup(`<b class="font-display">${title}</b><br><span class="text-xs text-slate-500">${address}</span>`);
-                    }
+                const lat = parseFloat(event['Latitud']);
+                const lng = parseFloat(event['Longitud']);
 
-                    // Create event html card
-                    const cardHtml = `
+                // Add map marker if coordinates exist
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    const marker = L.marker([lat, lng], { icon: createIcon(iconName) }).addTo(map);
+                    marker.bindPopup(`<b class="font-display">${title}</b><br><span class="text-xs text-slate-500">${address}</span>`);
+                }
+
+                // Create event html card
+                const cardHtml = `
                     <div class="snap-start bg-background-light/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-[28px] p-4 shadow-[0_4px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.4)] border border-slate-200/50 dark:border-slate-700/50 flex gap-4 items-center cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-[0.98]" onclick="window.location.href='detalle.html?event=${encodeURIComponent(title)}'">
                         <div class="h-[75px] w-[75px] rounded-[18px] bg-cover bg-center shrink-0 shadow-sm border border-slate-100 dark:border-slate-800" style="background-image: url('${imgUrl}')"></div>
                         <div class="flex-1 min-w-0 py-1">
@@ -314,14 +363,17 @@
                         </div>
                     </div>
                     `;
-                    eventsContainer.insertAdjacentHTML('beforeend', cardHtml);
-                });
-            },
-            error: function (error) {
-                console.error("Error fetching CSV:", error);
-                eventsContainer.innerHTML = '<p class="text-center text-red-500 font-medium py-4">Error cargando parche.</p>';
+                eventsContainer.insertAdjacentHTML('beforeend', cardHtml);
+            });
+
+            // Adjust map view to show all markers nicely
+            if (localEvents.length > 0) {
+                const bounds = L.latLngBounds(localEvents.filter(e => !isNaN(parseFloat(e['Latitud'])) && !isNaN(parseFloat(e['Longitud']))).map(e => [parseFloat(e['Latitud']), parseFloat(e['Longitud'])]));
+                map.fitBounds(bounds, { padding: [50, 50], maxZoom: 16 });
             }
-        });
+        }
+
+        renderEvents(localEvents);
 
         // Locate Me Button
         document.getElementById('locate-me').addEventListener('click', () => {
