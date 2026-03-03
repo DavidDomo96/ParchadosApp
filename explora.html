@@ -17,6 +17,11 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
+    <!-- PapaParse para procesar CSV -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"
+        integrity="sha512-dfvX8050t2+mO2L0d0iA+8rT+0eQjS9hJshT3dZf38Qx+P5v5oZIt+I40HpfR2qTfD9O8fB/X4uN/70xH1m/7w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -150,27 +155,12 @@
             </div>
         </div>
 
-        <!-- Bottom Sheet Event Card -->
-        <div class="w-full px-4 max-w-md mx-auto">
-            <div class="pointer-events-auto bg-background-light/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-[28px] p-4 shadow-[0_4px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.4)] border border-slate-200/50 dark:border-slate-700/50 flex gap-4 items-center cursor-pointer active:scale-[0.98] transition-all"
-                onclick="window.location.href='detalle.html'">
-                <div class="h-[75px] w-[75px] rounded-[18px] bg-cover bg-center shrink-0 shadow-sm border border-slate-100 dark:border-slate-800"
-                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDRAM83Cw58dxjek-hTzqDzhol6DSuyh4Vi3bzK5HgT_o57MW1TSZ1BWP72TttwnYrJaElsUKCIVmGRk8rZWFiXyjlYxnwdIFlsTxw6o0uln2Jq_DUiXJ3yUUtLM8MQscna5EBT991x6liIHd09FbFEAIX9Rie2zDyTLzEYKK29dY9MUQMz-ptpNw613sNB4oAay8tCEzwqV1CRyi7-FYlf7lgaPXRZQnG5xG0JZYozhSP-k4ZzdnVzcf7a0RlV7A7mTmMzf04nUL4')">
-                </div>
-                <div class="flex-1 min-w-0 py-1">
-                    <h4 class="text-[17px] font-bold text-slate-900 dark:text-slate-100 truncate tracking-tight">Taller
-                        de Cafe!</h4>
-                    <p class="text-[13px] font-medium text-slate-500 dark:text-slate-400 mt-[2px] truncate">Noche -
-                        Evento Social</p>
-                    <p class="text-[12px] font-medium text-slate-400 dark:text-slate-500 mt-[2px] truncate">Parque
-                        Principal Sabana</p>
-                    <span class="text-[13px] font-semibold text-slate-600 dark:text-slate-400 mt-1 block">En 1
-                        hora</span>
-                </div>
-                <div class="flex items-center justify-center w-8 shrink-0 text-slate-400">
-                    <span class="material-symbols-outlined">chevron_right</span>
-                </div>
-            </div>
+        <!-- Bottom Sheet Event Card Container -->
+        <div id="events-container"
+            class="w-full px-4 max-w-md mx-auto flex flex-col gap-3 max-h-[35vh] overflow-y-auto hide-scrollbar snap-y pb-2 pointer-events-auto">
+            <!-- Loading indicator -->
+            <div class="pointer-events-none p-4 text-center text-slate-500 font-medium animate-pulse text-sm">Cargando
+                parches...</div>
         </div>
     </div>
 
@@ -266,9 +256,72 @@
             iconAnchor: [17, 34]
         });
 
-        L.marker([4.8650, -74.0600], { icon: createIcon('restaurant') }).addTo(map);
-        L.marker([4.8600, -74.0550], { icon: createIcon('local_cafe') }).addTo(map);
-        L.marker([4.8630, -74.0500], { icon: createIcon('nightlife') }).addTo(map);
+        // Icon Mapping based on Category
+        const categoryIconMap = {
+            'Comida': 'restaurant',
+            'Social': 'groups',
+            'Noche': 'nightlife',
+            'Arte': 'palette',
+            'Deporte': 'fitness_center',
+            'default': 'explore'
+        };
+
+        // Load CSV Data using PapaParse
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRAH0g9Exd8uMNUAxHvOgoJ6-9Kre9iQhLlpyzA2FRzlePIrRBk2-fqt50Mvnz4AUKDYvH68gu_zsBd/pub?gid=0&single=true&output=csv';
+        const eventsContainer = document.getElementById('events-container');
+
+        Papa.parse(csvUrl, {
+            download: true,
+            header: true,
+            complete: function (results) {
+                const events = results.data.filter(e => e['Nombre del Evento']); // filter out empty rows
+                eventsContainer.innerHTML = ''; // clear mock
+
+                events.forEach(event => {
+                    // Extracting values based on columns
+                    const title = event['Nombre del Evento'];
+                    let category = event['Categoría'] || 'default';
+                    // Clean up trailing spaces from CSV
+                    category = category.trim();
+
+                    const iconName = categoryIconMap[category] || categoryIconMap['default'];
+                    const imgUrl = event['Fotografía (URL)'] || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=300&auto=format&fit=crop';
+                    const type = event['Tipo de Plan'] || category;
+                    const address = event['Dirección Física'] || event['Comercio Aliado'] || 'Ubicación secreta';
+                    const time = event['Fecha y Hora'] || 'Próximamente';
+
+                    const lat = parseFloat(event['Latitud']);
+                    const lng = parseFloat(event['Longitud']);
+
+                    // Add map marker if coordinates exist
+                    if (!isNaN(lat) && !isNaN(lng)) {
+                        const marker = L.marker([lat, lng], { icon: createIcon(iconName) }).addTo(map);
+                        marker.bindPopup(`<b class="font-display">${title}</b><br><span class="text-xs text-slate-500">${address}</span>`);
+                    }
+
+                    // Create event html card
+                    const cardHtml = `
+                    <div class="snap-start bg-background-light/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-[28px] p-4 shadow-[0_4px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.4)] border border-slate-200/50 dark:border-slate-700/50 flex gap-4 items-center cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-[0.98]" onclick="window.location.href='detalle.html?event=${encodeURIComponent(title)}'">
+                        <div class="h-[75px] w-[75px] rounded-[18px] bg-cover bg-center shrink-0 shadow-sm border border-slate-100 dark:border-slate-800" style="background-image: url('${imgUrl}')"></div>
+                        <div class="flex-1 min-w-0 py-1">
+                            <h4 class="text-[17px] font-bold text-slate-900 dark:text-slate-100 truncate tracking-tight">${title}</h4>
+                            <p class="text-[13px] font-medium text-slate-500 dark:text-slate-400 mt-[2px] truncate">${type}</p>
+                            <p class="text-[12px] font-medium text-slate-400 dark:text-slate-500 mt-[2px] truncate">${address}</p>
+                            <span class="text-[13px] font-semibold text-slate-600 dark:text-slate-400 mt-1 block">${time}</span>
+                        </div>
+                        <div class="flex items-center justify-center w-8 shrink-0 text-slate-400">
+                            <span class="material-symbols-outlined">chevron_right</span>
+                        </div>
+                    </div>
+                    `;
+                    eventsContainer.insertAdjacentHTML('beforeend', cardHtml);
+                });
+            },
+            error: function (error) {
+                console.error("Error fetching CSV:", error);
+                eventsContainer.innerHTML = '<p class="text-center text-red-500 font-medium py-4">Error cargando parche.</p>';
+            }
+        });
 
         // Locate Me Button
         document.getElementById('locate-me').addEventListener('click', () => {
